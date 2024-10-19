@@ -1,0 +1,17 @@
+<p class="text">
+  {{ block.settings.text }}
+</p>
+
+{% schema %}
+{
+  "name": "Test",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Welcome to our shop!"
+    }
+  ],
+  "presets": [{ "name": "Test" }]
+}
+{% endschema %}
