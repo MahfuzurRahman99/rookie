@@ -15,59 +15,65 @@
       {% endif %}
     </a>
   </div>
+  {% comment %}
+    <div class="s-menu-wrapper">
+      {% for link in linklists['main-menu'].links %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </div>
+  {% endcomment %}
   <div class="s-menu-wrapper">
-    {% for link in linklists['main-menu'].links %}
-      <li>
-        <a href="{{ link.url }}">{{ link.title }}</a>
-      </li>
-    {% endfor %}
-    {% comment %}
-      <ul class="s-menu-wrapper-ul">
-        <li><a href="">Home</a></li>
-        <li><a href="">product</a></li>
-        <li><a href="">store</a></li>
-        <li><a href="">category</a></li>
-        <li><a href="">contact</a></li>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Catalog</a></li>
+    <li><a href="#">Contact</a></li>
+    <li>
+      <a href="#">dropdown</a>
+      <ul class="dropdown-content">
+        <li><a href="#">Option 1</a></li>
+        <li><a href="#">Option 2</a></li>
+        <li><a href="#">Option 3</a></li>
       </ul>
-    {% endcomment %}
+    </li>
   </div>
 </div>
 
 <style>
-  .s-main-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .s-main-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-  .s-logo-wrapper-link {
-    display: block;
-    width: 100px;
-  }
+    .s-logo-wrapper-link {
+      display: block;
+      width: 100px;
+    }
 
-  .s-logo-wrapper-img {
-    max-width: 100%;
-  }
+    .s-logo-wrapper-img {
+      max-width: 100%;
+    }
 
-  .s-menu-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .s-menu-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-  .s-menu-wrapper li {
-    display: block;
-    margin-right: 20px; /* Add some margin to space out the menu items */
-    list-style: none;
-  }
+    .s-menu-wrapper li {
+      margin-right: 20px;
+      list-style: none;
+    }
 
-  .s-menu-wrapper li a {
-    text-decoration: none;
-    color: #000; /* Change to your desired color */
-    text-decoration: none;
-  }
+    .s-menu-wrapper li a {
+      text-decoration: none;
+      color: #000;
+      text-decoration: none;
+    }
+  {% comment %} Dropdown {% endcomment %}
 </style>
 
 {% schema %}
