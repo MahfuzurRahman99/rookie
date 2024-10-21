@@ -17,31 +17,38 @@
 </div>
 
 <style>
-    .s-main-wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    ,
-    .s-logo-wrapper-link{
-      display: block;
-      width: 100px;
-      height: 100px;
-  },
-    .s-logo-wrapper-img{
-      max-width: 100%;
-  },
-    .s-menu-wrapper-ul {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    ,
-    {% comment %} .s-menu-wrapper ul li {
-      display: block;
-    } {% endcomment %}
+  .s-main-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .s-logo-wrapper-link {
+    display: block;
+    width: 100px;
+  }
+
+  .s-logo-wrapper-img {
+    max-width: 100%;
+  }
+
+  .s-menu-wrapper-ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .s-menu-wrapper-ul li {
+    display: block;
+    margin-right: 20px; /* Add some margin to space out the menu items */
+  }
+
+  .s-menu-wrapper-ul li a {
+    text-decoration: none;
+    color: #000; /* Change to your desired color */
+  }
 </style>
 
 {% schema %}
@@ -49,6 +56,12 @@
   "name": "Header-scratch",
   "class": "header-scratch",
   "tag": "header",
-  "settings": []
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "s-logo",
+      "label": "Image"
+    }
+  ]
 }
 {% endschema %}
