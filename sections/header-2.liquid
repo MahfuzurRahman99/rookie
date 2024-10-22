@@ -28,8 +28,8 @@
     <li><a href="#">Home</a></li>
     <li><a href="#">Catalog</a></li>
     <li><a href="#">Contact</a></li>
-    <li>
-      <a href="#">dropdown</a>
+    <li class="dropdown">
+      <a href="#" class="dropdown-btn">Dropdown</a>
       <ul class="dropdown-content">
         <li><a href="#">Option 1</a></li>
         <li><a href="#">Option 2</a></li>
@@ -40,41 +40,79 @@
 </div>
 
 <style>
-    .s-main-wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  .s-main-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    .s-logo-wrapper-link {
-      display: block;
-      width: 100px;
-    }
+  .s-logo-wrapper-link {
+    display: block;
+    width: 100px;
+  }
 
-    .s-logo-wrapper-img {
-      max-width: 100%;
-    }
+  .s-logo-wrapper-img {
+    max-width: 100%;
+  }
 
-    .s-menu-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  .s-menu-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    .s-menu-wrapper li {
-      margin-right: 20px;
-      list-style: none;
-    }
+  .s-menu-wrapper li {
+    margin-right: 20px;
+    list-style: none;
+  }
 
-    .s-menu-wrapper li a {
-      text-decoration: none;
-      color: #000;
-      text-decoration: none;
-    }
-  {% comment %} Dropdown {% endcomment %}
+  .s-menu-wrapper li a {
+    text-decoration: none;
+    color: #000;
+    text-decoration: none;
+  }
+
+  /* Dropdown styling */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content li {
+    padding: 12px 16px;
+  }
+
+  .dropdown-content li a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .dropdown-content li a:hover {
+    background-color: #ddd;
+  }
+
+  .dropdown {
+    position: relative;
+  }
 </style>
+
+<script>
+  document.querySelector('.dropdown-btn').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default anchor behavior
+    var dropdownContent = document.querySelector('.dropdown-content');
+    if (dropdownContent.style.display === 'block') {
+      dropdownContent.style.display = 'none';
+    } else {
+      dropdownContent.style.display = 'block';
+    }
+  });
+</script>
 
 {% schema %}
 {
