@@ -76,7 +76,7 @@
 
   /* Hide submenus by default */
   .header-sub {
-    display: none;
+    display: none !important;
     position: absolute;
     top: 100%;
     left: 0;
@@ -99,7 +99,7 @@
 
   /* Show the submenu when parent li has the class 'open' */
   .menu-item.open > .header-sub {
-    display: block;
+    display: block !important;
   }
 
   /* Optional: Add transition for smoother dropdown appearance */
