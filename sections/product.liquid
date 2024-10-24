@@ -1,14 +1,14 @@
 <h2>Welcome to Product Section</h2>
 
 <div class="s-product-wrapper">
-  {% for product in collections['automated-collection'].products %}
+  {% for product in collections.all.products %}
     <div class="s-product-content">
       <a href="{{ product.url }}" class="s-product-link">
         <div class="s-product-img">
           <img
             width="100%"
             height="100%"
-            src="{{ product.featured_image | img_url }}"
+            src="{{ product.featured_image | image_url }}"
             alt="{{ product.title }}"
           >
         </div>
