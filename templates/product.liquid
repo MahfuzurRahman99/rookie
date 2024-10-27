@@ -23,18 +23,22 @@
         {% if product.has_only_default_variant %}
           <input type="hidden" name="id" value="{{ product.variants.first.id }}">
         {% else %}
-          <label for="id">variant</label>
-          <br>
-          <select name="id">
-            {% for variant in product.variants %}
-              <option value="{{ variant.id }}">
-                {{ variant.title }}
-              </option>
-            {% endfor %}
-          </select>
+          <!-- Loop through each option (Color, Size) and display separately -->
+          {% for option in product.options_with_values %}
+            <label for="option-{{ option.name | handleize }}">{{ option.name }}</label>
+            <select name="options[{{ option.position }}]" id="option-{{ option.name | handleize }}">
+              {% for value in option.values %}
+                <option value="{{ value }}">{{ value }}</option>
+              {% endfor %}
+            </select>
+          {% endfor %}
         {% endif %}
+
+        <!-- Quantity Input -->
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" value="1" min="1">
+
+        <!-- Add to Cart Button -->
         <button type="submit" class="add-to-cart-btn">Add to Cart</button>
       {% endform %}
     </div>
@@ -42,7 +46,7 @@
 </div>
 
 <style>
-  /* Page Title */
+  /* Styles for page */
   .page-title {
     font-size: 28px;
     font-family: Arial, sans-serif;
@@ -51,7 +55,6 @@
     text-align: center;
   }
 
-  /* Product Wrapper */
   .product-wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -65,7 +68,6 @@
     border-radius: 8px;
   }
 
-  /* Product Image */
   .product-img {
     flex: 1;
     max-width: 40%;
@@ -81,7 +83,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
-  /* Product Details */
   .product-details {
     flex: 2;
     display: flex;
@@ -110,7 +111,6 @@
     margin-bottom: 20px;
   }
 
-  /* Add to Cart Form */
   .product-form {
     margin-top: 20px;
     display: flex;
