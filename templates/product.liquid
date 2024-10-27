@@ -23,6 +23,8 @@
         {% if product.has_only_default_variant %}
           <input type="hidden" name="id" value="{{ product.variants.first.id }}">
         {% else %}
+          <label for="id">variant</label>
+          <br>
           <select name="id">
             {% for variant in product.variants %}
               <option value="{{ variant.id }}">
