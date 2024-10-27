@@ -23,21 +23,16 @@
         {% if product.has_only_default_variant %}
           <input type="hidden" name="id" value="{{ product.variants.first.id }}">
         {% else %}
-          {% for option in product.options_with_values %}
-            <label for="option-{{ option.name | handleize }}">{{ option.name }}</label>
-            <select name="options[{{ option.position }}]" id="option-{{ option.name | handleize }}">
-              {% for value in option.values %}
-                <option value="{{ value }}">{{ value }}</option>
-              {% endfor %}
-            </select>
-          {% endfor %}
+          <select name="id">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}">
+                {{ variant.title }}
+              </option>
+            {% endfor %}
+          </select>
         {% endif %}
-
-        <!-- Quantity Input -->
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" value="1" min="1">
-
-        <!-- Add to Cart Button -->
         <button type="submit" class="add-to-cart-btn">Add to Cart</button>
       {% endform %}
     </div>

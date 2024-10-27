@@ -1,0 +1,123 @@
+<h2 class="cart-title">Your Shopping Cart</h2>
+
+<div class="s-cart">
+  <form action="/cart" method="post">
+    {% for item in cart.items %}
+      <div class="cart-item">
+        <img
+          width="100%"
+          height="100%"
+          src="{{ item.image | image_url }}"
+          alt="{{ item.title }}"
+          class="cart-item-image"
+        >
+
+        <h3>{{ item.title }}</h3>
+        <p class="cart-item-variant">
+          {% if item.variant %}
+            Variant: {{ item.variant.title }}
+          {% endif %}
+        </p>
+        <p class="cart-item-price">{{ item.price | money }}</p>
+
+        <input
+          type="number"
+          name="updates[{{ item.key }}]"
+          value="{{ item.quantity }}"
+          min="0"
+          class="cart-quantity-input"
+          style="    width: 35px;"
+        >
+        <button type="submit" name="updates[{{ item.key }}]" value="0" class="remove-btn">Remove</button>
+      </div>
+    {% endfor %}
+
+    <div class="cart-total"><strong>Subtotal:</strong> {{ cart.total_price | money }}</div>
+
+    <button type="submit" class="update-cart-btn">Update Cart</button>
+  </form>
+</div>
+
+<style>
+  .cart-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .s-cart {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+  }
+
+  .cart-item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 15px 0;
+  }
+
+  .cart-item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .cart-item-details {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cart-item-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 5px;
+  }
+
+  .cart-item-variant {
+    font-size: 14px;
+    color: #555;
+  }
+
+  .cart-item-price {
+    font-size: 16px;
+    color: #2b8a3e;
+    margin: 5px 0;
+  }
+
+  .remove-form {
+    margin-left: auto;
+  }
+
+  .remove-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .remove-btn:hover {
+    background-color: #c0392b;
+  }
+
+  .cart-divider {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    margin: 15px 0;
+  }
+</style>
