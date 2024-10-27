@@ -23,7 +23,6 @@
         {% if product.has_only_default_variant %}
           <input type="hidden" name="id" value="{{ product.variants.first.id }}">
         {% else %}
-          <!-- Loop through each option (Color, Size) and display separately -->
           {% for option in product.options_with_values %}
             <label for="option-{{ option.name | handleize }}">{{ option.name }}</label>
             <select name="options[{{ option.position }}]" id="option-{{ option.name | handleize }}">
