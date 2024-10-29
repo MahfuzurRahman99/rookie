@@ -2,6 +2,11 @@
   <h1>{{ collection.title }}</h1>
   <p>This is my collection page</p>
 
+  <form action="/search" class="search-form">
+    <input type="search" name="q" placeholder="Search products..." class="search-input">
+    <button type="submit" class="search-button">🔍</button>
+  </form>
+
   <select id="sort-by">
     {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 
@@ -39,6 +44,31 @@
   </div>
 </div>
 <style>
+  .search-form {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+  }
+  .search-input {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px 0 0 20px;
+    font-size: 14px;
+    outline: none;
+    width: 200px;
+  }
+  .search-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .search-button:hover {
+    background-color: #555;
+  }
   .s-collection-wrapper {
     display: flex;
     flex-direction: column;
@@ -84,27 +114,3 @@
     margin-bottom: 15px;
   }
 </style>
-<script>
-  Shopify.queryParams = {};
-
-  // Preserve existing query parameters
-  if (location.search.length) {
-    var params = location.search.substr(1).split('&');
-
-    for (var i = 0; i < params.length; i++) {
-      var keyValue = params[i].split('=');
-
-      if (keyValue.length) {
-        Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
-      }
-    }
-  }
-
-  // Update sort_by query parameter on select change
-  document.querySelector('#sort-by').addEventListener('change', function (e) {
-    var value = e.target.value;
-
-    Shopify.queryParams.sort_by = value;
-    location.search = new URLSearchParams(Shopify.queryParams).toString();
-  });
-</script>
