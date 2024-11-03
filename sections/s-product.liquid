@@ -14,7 +14,7 @@
   <!-- Product Details -->
   <div class="product-details">
     <h2 class="product-title">{{ product.title }}</h2>
-    <p class="product-price">{{ product.price | money }}</p>
+    <p class="product-price" id="product-price">{{ product.price | money }}</p>
     <p class="product-description">{{ product.description }}</p>
 
     <!-- Add to Cart Form -->
@@ -23,9 +23,9 @@
         {% if product.has_only_default_variant %}
           <input type="hidden" name="id" value="{{ product.variants.first.id }}">
         {% else %}
-          <select name="id">
+          <select name="id" id="product-variant">
             {% for variant in product.variants %}
-              <option value="{{ variant.id }}">
+              <option value="{{ variant.id }}" data-price="{{ variant.price | money }}">
                 {{ variant.title }}
               </option>
             {% endfor %}
@@ -143,3 +143,15 @@
     background-color: #247330;
   }
 </style>
+
+<script>
+  const productPrice = document.querySelector('#product-price');
+  const productVariant = document.querySelector('#product-variant');
+  if (productVariant) {
+    productVariant.addEventListener('change', (event) => {
+      const selectedOption = productVariant.options[productVariant.selectedIndex];
+      const variantPrice = selectedOption.getAttribute('data-price');
+      productPrice.textContent = variantPrice;
+    });
+  }
+</script>
