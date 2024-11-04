@@ -20,19 +20,37 @@
     <!-- Add to Cart Form -->
     <div class="product-form">
       {% form 'product', product %}
-        {% comment %}
-          {% if product.has_only_default_variant %}
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-          {% else %}
-            <select name="id" id="product-variant">
-              {% for variant in product.variants %}
-                <option value="{{ variant.id }}">
-                  {{ variant.title }}
-                </option>
-              {% endfor %}
-            </select>
-          {% endif %}
-        {% endcomment %}
+        <input
+          type="hidden"
+          name="id"
+          value="{{ product.selected_or_first_available_variant.id }}"
+          id="selected-variant-id"
+        >
+
+        {% for option in product.options_with_values %}
+          <fieldset>
+            <legend>{{ option.name }}</legend>
+            {% for value in option.values %}
+              <input
+                type="radio"
+                name="{{ option.name }}"
+                value="{{ value }}"
+                id="{{ option.name | handleize }}-{{ value | handleize }}"
+                {% assign option_name = 'option' | append: forloop.index %}
+                {% if product.selected_or_first_available_variant[option_name] == value %}
+                  checked
+                {% endif %}
+
+                data-option="{{ option.name }}"
+                onclick="updateVariant()"
+              >
+              <label for="{{ option.name | handleize }}-{{ value | handleize }}">
+                {{ value }}
+              </label>
+            {% endfor %}
+          </fieldset>
+        {% endfor %}
+
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" value="1" min="1">
         <button type="submit" class="add-to-cart-btn">Add to Cart</button>
@@ -145,3 +163,34 @@
     background-color: #247330;
   }
 </style>
+<script>
+const productVariants = {{ product.variants | json }};
+const priceElement = document.getElementById("product-price");
+const variantIdElement = document.getElementById("selected-variant-id");
+
+function formatMoney(cents) {
+  const dollarAmount = (cents / 100).toFixed(2);
+  return `$${dollarAmount}`;
+}
+
+function updateVariant() {
+  const selectedOptions = [];
+  document.querySelectorAll('input[type="radio"]:checked').forEach((input) => {
+    selectedOptions.push(input.value);
+  });
+
+  const selectedVariant = productVariants.find(variant => 
+    variant.options.every((option, index) => option === selectedOptions[index])
+  );
+
+  if (selectedVariant) {
+    priceElement.innerText = formatMoney(selectedVariant.price);
+
+    variantIdElement.value = selectedVariant.id;
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('variant', selectedVariant.id);
+    window.history.replaceState(null, '', url);
+  }
+}
+</script>
