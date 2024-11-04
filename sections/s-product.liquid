@@ -3,6 +3,7 @@
   <!-- Product Image -->
   <div class="product-img">
     <img
+      id="variant-image"
       height="100%"
       width="100%"
       src="{{ product.featured_image | image_url }}"
@@ -172,6 +173,7 @@ function formatMoney(cents) {
   const dollarAmount = (cents / 100).toFixed(2);
   return `$${dollarAmount}`;
 }
+const variantImageElement = document.getElementById("variant-image");
 
 function updateVariant() {
   const selectedOptions = [];
@@ -187,6 +189,9 @@ function updateVariant() {
     priceElement.innerText = formatMoney(selectedVariant.price);
 
     variantIdElement.value = selectedVariant.id;
+    if (selectedVariant.featured_image) {
+      variantImageElement.src = selectedVariant.featured_image.src;
+    }
 
     const url = new URL(window.location.href);
     url.searchParams.set('variant', selectedVariant.id);
